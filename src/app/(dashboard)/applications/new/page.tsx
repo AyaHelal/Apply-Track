@@ -1,9 +1,11 @@
+
 import ApplicationForm from "@/components/applications/ApplicationForm";
 
 export default function NewApplicationPage() {
   return (
     <div className="mx-auto max-w-2xl space-y-8">
       <div>
+
         <h1 className="text-2xl font-bold text-text-primary">
           Add Application
         </h1>

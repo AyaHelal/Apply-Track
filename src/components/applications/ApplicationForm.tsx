@@ -1,11 +1,18 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import { Save } from "lucide-react";
+import Button from "@/components/ui/Button";
+import ButtonLink from "@/components/ui/ButtonLink";
+import type { ApplicationStatus } from "@/types/application";
+import Input from "@/components/ui/Input";
+import Select from "@/components/ui/Select";
 
 export default function ApplicationForm() {
     const [company, setCompany] = useState("");
     const [position, setPosition] = useState("");
-    const [status, setStatus] = useState("Applied");
+    const [status, setStatus] =
+        useState<ApplicationStatus>("Applied");
     const [date, setDate] = useState("");
     const [notes, setNotes] = useState("");
 
@@ -20,80 +27,57 @@ export default function ApplicationForm() {
             className="space-y-6 rounded-xl border border-border bg-surface p-6"
         >
             {/* Company */}
-            <div className="space-y-2">
-                <label
-                    htmlFor="company"
-                    className="text-sm font-medium text-text-primary"
-                >
-                    Company Name
-                </label>
-
-                <input
+            <div className="sm:col-span-2">
+                <Input
                     id="company"
+                    label="Company Name"
                     type="text"
                     value={company}
                     onChange={(event) => setCompany(event.target.value)}
                     placeholder="e.g. Google"
-                    className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-text-primary outline-none focus:border-primary"
+                    required
                 />
             </div>
 
             {/* Position */}
-            <div className="space-y-2">
-                <label
-                    htmlFor="position"
-                    className="text-sm font-medium text-text-primary"
-                >
-                    Position
-                </label>
-
-                <input
+            <div className="sm:col-span-2">
+                <Input
                     id="position"
+                    label="Position"
                     type="text"
                     value={position}
                     onChange={(event) => setPosition(event.target.value)}
                     placeholder="e.g. Frontend Developer"
-                    className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-text-primary outline-none focus:border-primary"
+                    required
                 />
             </div>
 
             {/* Status */}
             <div className="space-y-2">
-                <label
-                    htmlFor="status"
-                    className="text-sm font-medium text-text-primary"
-                >
-                    Status
-                </label>
-
-                <select
+                <Select
                     id="status"
+                    label="Status"
                     value={status}
-                    onChange={(event) => setStatus(event.target.value)}
-                    className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-text-primary outline-none focus:border-primary"
+                    onChange={(event) =>
+                        setStatus(event.target.value as ApplicationStatus)
+                    }
                 >
                     <option value="Applied">Applied</option>
                     <option value="Interview">Interview</option>
                     <option value="Offer">Offer</option>
                     <option value="Rejected">Rejected</option>
-                </select>
+                </Select>
             </div>
 
             {/* Date */}
             <div className="space-y-2">
-                <label
-                    htmlFor="date"
-                    className="text-sm font-medium text-text-primary"
-                >
-                    Applied Date
-                </label>
-
-                <input
+                <Input
                     id="date"
+                    label="Applied Date"
                     type="date"
                     value={date}
                     onChange={(event) => setDate(event.target.value)}
-                    className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-text-primary outline-none focus:border-primary"
+                    required
                 />
             </div>
 
@@ -116,13 +100,17 @@ export default function ApplicationForm() {
                 />
             </div>
 
-            {/* Submit */}
-            <button
-                type="submit"
-                className="w-full rounded-lg bg-primary px-4 py-3 text-sm font-medium text-white hover:opacity-90"
-            >
-                Add Application
-            </button>
+            {/* Actions */}
+            <div className="flex flex-col-reverse gap-3 border-t border-border px-6 py-3 sm:flex-row sm:justify-end">
+                <ButtonLink href="/applications" variant="secondary">
+                    Cancel
+                </ButtonLink>
+
+                <Button type="submit" className="cursor-pointer">
+                    <Save size={17} />
+                    Save Application
+                </Button>
+            </div>
         </form>
     );
 }
