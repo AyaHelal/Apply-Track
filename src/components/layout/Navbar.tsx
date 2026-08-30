@@ -1,5 +1,6 @@
 import Logo from "@/components/layout/Logo";
 import MobileNavigation from "@/components/layout/MobileNavigation";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 
 export default function Navbar() {
   return (
@@ -30,6 +31,7 @@ export default function Navbar() {
             A
           </span>
         </div>
+        <ThemeToggle />
       </div>
 
     </header>
