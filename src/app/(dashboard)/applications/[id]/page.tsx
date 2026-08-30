@@ -83,7 +83,7 @@ export default async function ApplicationDetailsPage({
       {/* Header */}
       <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             <h1 className="text-2xl font-bold text-text-primary">
               {application.company}
             </h1>
@@ -96,13 +96,13 @@ export default async function ApplicationDetailsPage({
           </p>
         </div>
 
-        <div className="flex gap-3">
-          <Button variant="secondary" className="cursor-pointer">
+        <div className="flex flex-wrap gap-3">
+          <Button variant="secondary" className="flex-1 cursor-pointer sm:flex-none">
             <Pencil size={17} />
             Edit
           </Button>
 
-          <Button variant="danger" className="cursor-pointer">
+          <Button variant="danger" className="flex-1 cursor-pointer sm:flex-none">
             <Trash2 size={17} />
             Delete
           </Button>
@@ -111,7 +111,7 @@ export default async function ApplicationDetailsPage({
 
       {/* Information */}
       <section className="rounded-xl border border-border bg-surface">
-        <div className="border-b border-border px-6 py-5">
+        <div className="border-b border-border px-4 py-5 sm:px-6">
           <h2 className="font-semibold text-text-primary">
             Application Information
           </h2>
@@ -121,7 +121,7 @@ export default async function ApplicationDetailsPage({
           </p>
         </div>
 
-        <div className="grid gap-6 p-6 sm:grid-cols-2">
+        <div className="grid gap-5 p-4 sm:grid-cols-2 sm:gap-6 sm:p-6">
           {/* Company */}
           <div className="flex items-start gap-3">
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">

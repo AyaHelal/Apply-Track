@@ -16,14 +16,14 @@ export default function StatCard({
     iconClassName = "bg-primary/10 text-primary",
 }: StatCardProps) {
     return (
-        <div className="group rounded-xl border border-border bg-surface p-5 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
+        <div className="group rounded-xl border border-border bg-surface p-4 sm:p-5 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
             <div className="flex items-start justify-between gap-4">
                 <div>
                     <p className="text-sm font-medium text-text-secondary">
                         {title}
                     </p>
 
-                    <p className="mt-2 text-3xl font-bold tracking-tight text-text-primary">
+                    <p className="mt-2 text-2xl font-bold tracking-tight text-text-primary sm:text-3xl">
                         {value}
                     </p>
                 </div>

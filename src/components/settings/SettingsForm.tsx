@@ -35,7 +35,7 @@ export default function SettingsForm() {
                     </p>
                 </div>
 
-                <div className="grid gap-6 p-6 sm:grid-cols-2">
+                <div className="grid gap-5 p-4 sm:grid-cols-2 sm:gap-6 sm:p-6">
                     <Input
                         id="name"
                         label="Name"
@@ -98,8 +98,8 @@ export default function SettingsForm() {
             </section>
 
             {/* Actions */}
-            <div className="flex justify-end">
-                <Button type="submit" className="cursor-pointer">
+            <div className="flex justify-stretch sm:justify-end">
+                <Button type="submit" className="w-full cursor-pointer sm:w-auto">
                     <Save size={17} />
                     Save Changes
                 </Button>

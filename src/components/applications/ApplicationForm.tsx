@@ -24,10 +24,10 @@ export default function ApplicationForm() {
     return (
         <form
             onSubmit={handleSubmit}
-            className="space-y-6 rounded-xl border border-border bg-surface p-6"
+            className="space-y-6 rounded-xl border border-border bg-surface p-4 sm:p-6"
         >
             {/* Company */}
-            <div className="sm:col-span-2">
+            <div>
                 <Input
                     id="company"
                     label="Company Name"
@@ -101,12 +101,12 @@ export default function ApplicationForm() {
             </div>
 
             {/* Actions */}
-            <div className="flex flex-col-reverse gap-3 border-t border-border px-6 py-3 sm:flex-row sm:justify-end">
-                <ButtonLink href="/applications" variant="secondary">
+            <div className="flex flex-col-reverse gap-3 border-t border-border pt-6 sm:flex-row sm:justify-end">
+                <ButtonLink href="/applications" variant="secondary" className="w-full sm:w-auto">
                     Cancel
                 </ButtonLink>
 
-                <Button type="submit" className="cursor-pointer">
+                <Button type="submit" className="w-full cursor-pointer sm:w-auto">
                     <Save size={17} />
                     Save Application
                 </Button>

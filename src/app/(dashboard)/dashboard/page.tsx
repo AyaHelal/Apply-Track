@@ -2,7 +2,8 @@ import {
   BriefcaseBusiness,
   CalendarCheck,
   Trophy,
-  HeartHandshake
+  HeartHandshake,
+  XCircle
 } from "lucide-react";
 
 import StatCard from "@/components/dashboard/StatCard";
@@ -25,33 +26,41 @@ export default function DashboardPage() {
 
       {/* Stats */}
       <section>
-  <h2 className="sr-only">Application statistics</h2>
+        <h2 className="sr-only">Application statistics</h2>
 
-  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-    <StatCard
-      title="Total Applications"
-      value={24}
-      description="All applications you've added"
-      icon={BriefcaseBusiness}
-    />
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <StatCard
+            title="Total Applications"
+            value={24}
+            description="All applications you've added"
+            icon={BriefcaseBusiness}
+          />
 
-    <StatCard
-      title="Interviews"
-      value={6}
-      description="Applications currently in interview"
-      icon={CalendarCheck}
-      iconClassName="bg-info/10 text-info"
-    />
+          <StatCard
+            title="Interviews"
+            value={6}
+            description="Applications currently in interview"
+            icon={CalendarCheck}
+            iconClassName="bg-info/10 text-info"
+          />
 
-    <StatCard
-      title="Offers"
-      value={2}
-      description="Offers you've received"
-      icon={Trophy}
-      iconClassName="bg-success/10 text-success"
-    />
-  </div>
-</section>
+          <StatCard
+            title="Offers"
+            value={2}
+            description="Offers you've received"
+            icon={Trophy}
+            iconClassName="bg-success/10 text-success"
+          />
+
+          <StatCard
+            title="Rejected"
+            value={8}
+            description="Applications that were rejected"
+            icon={XCircle}
+            iconClassName="bg-danger/10 text-danger"
+          />
+        </div>
+      </section>
 
       {/* Recent Applications */}
       <section>

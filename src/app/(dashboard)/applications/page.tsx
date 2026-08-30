@@ -4,6 +4,7 @@ import type { Application } from "@/types/application";
 import { Plus, ArrowRight, BriefcaseBusiness } from "lucide-react";
 import ButtonLink from "@/components/ui/ButtonLink";
 import EmptyState from "@/components/ui/EmptyState";
+import ApplicationCard from "@/components/applications/ApplicationCard";
 
 const applications: Application[] = [
   {
@@ -52,89 +53,103 @@ export default function ApplicationsPage() {
         )}
       </div>
 
-      {/* Applications List */}
-      <section>
-        {applications.length === 0 ? (
-          <EmptyState
-            icon={BriefcaseBusiness}
-            title="No applications yet"
-            description="Start tracking your job search by adding your first application."
-            action={
-              <ButtonLink href="/applications/new">
-                <Plus size={18} />
-                Add Application
-              </ButtonLink>
-            }
-          />
-        ) : (
-          <div className="overflow-hidden rounded-xl border border-border bg-surface">
-            <div className="overflow-x-auto">
-              <table className="w-full min-w-175">
-                <thead>
-                  <tr className="border-b border-border bg-surface-muted text-left">
-                    <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wide text-text-secondary">
-                      Company
-                    </th>
-
-                    <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wide text-text-secondary">
-                      Position
-                    </th>
-
-                    <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wide text-text-secondary">
-                      Status
-                    </th>
-
-                    <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wide text-text-secondary">
-                      Date
-                    </th>
-
-                    <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wide text-text-secondary">
-                      Action
-                    </th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  {applications.map((application) => (
-                    <tr
-                      key={application.id}
-                      className="border-b border-border last:border-b-0 transition-colors hover:bg-surface-muted/60"
-                    >
-                      <td className="px-6 py-5">
-                        <span className="font-semibold text-text-primary">
-                          {application.company}
-                        </span>
-                      </td>
-
-                      <td className="px-6 py-5 text-sm text-text-secondary">
-                        {application.position}
-                      </td>
-
-                      <td className="px-6 py-5">
-                        <StatusBadge status={application.status} />
-                      </td>
-
-                      <td className="px-6 py-5 text-sm text-text-secondary">
-                        {application.date}
-                      </td>
-
-                      <td className="px-6 py-5">
-                        <Link
-                          href={`/applications/${application.id}`}
-                          className="inline-flex items-center gap-1 text-sm font-medium text-primary transition-colors hover:text-primary-hover"
-                        >
-                          View
-                          <ArrowRight size={16} />
-                        </Link>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+      {/* Applications Content */}
+      {applications.length === 0 ? (
+        /* Empty State - يظهر على كل الشاشات */
+        <EmptyState
+          icon={BriefcaseBusiness}
+          title="No applications yet"
+          description="Start tracking your job search by adding your first application."
+          action={
+            <ButtonLink href="/applications/new">
+              <Plus size={18} />
+              Add Application
+            </ButtonLink>
+          }
+        />
+      ) : (
+        <>
+          {/* Mobile Applications */}
+          <div className="space-y-4 sm:hidden">
+            {applications.map((application) => (
+              <ApplicationCard
+                key={application.id}
+                application={application}
+              />
+            ))}
           </div>
-        )}
-      </section>
+
+          {/* Desktop Applications */}
+          <section className="hidden sm:block">
+            <div className="overflow-hidden rounded-xl border border-border bg-surface">
+              <div className="overflow-x-auto">
+                <table className="w-full min-w-175">
+                  <thead>
+                    <tr className="border-b border-border bg-surface-muted text-left">
+                      <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wide text-text-secondary">
+                        Company
+                      </th>
+
+                      <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wide text-text-secondary">
+                        Position
+                      </th>
+
+                      <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wide text-text-secondary">
+                        Status
+                      </th>
+
+                      <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wide text-text-secondary">
+                        Date
+                      </th>
+
+                      <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wide text-text-secondary">
+                        Action
+                      </th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {applications.map((application) => (
+                      <tr
+                        key={application.id}
+                        className="border-b border-border last:border-b-0 transition-colors hover:bg-surface-muted/60"
+                      >
+                        <td className="px-6 py-5">
+                          <span className="font-semibold text-text-primary">
+                            {application.company}
+                          </span>
+                        </td>
+
+                        <td className="px-6 py-5 text-sm text-text-secondary">
+                          {application.position}
+                        </td>
+
+                        <td className="px-6 py-5">
+                          <StatusBadge status={application.status} />
+                        </td>
+
+                        <td className="px-6 py-5 text-sm text-text-secondary">
+                          {application.date}
+                        </td>
+
+                        <td className="px-6 py-5">
+                          <Link
+                            href={`/applications/${application.id}`}
+                            className="inline-flex items-center gap-1 text-sm font-medium text-primary transition-colors hover:text-primary-hover"
+                          >
+                            View
+                            <ArrowRight size={16} />
+                          </Link>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+        </>
+      )}
     </div>
   );
 }
