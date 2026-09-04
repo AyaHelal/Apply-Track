@@ -3,11 +3,12 @@
 import { useMemo, useState } from "react";
 
 import ApplicationFilters from "@/components/applications/ApplicationFilters";
+import type { ApplicationSort } from "@/components/applications/ApplicationFilters";
 import ApplicationCard from "@/components/applications/ApplicationCard";
 import EmptyState from "@/components/ui/EmptyState";
 import StatusBadge from "@/components/ui/StatusBadge";
 
-import type { Application } from "@/types/application";
+import type { Application, ApplicationStatus } from "@/types/application";
 import { ArrowRight, BriefcaseBusiness } from "lucide-react";
 import Link from "next/link";
 
@@ -19,27 +20,50 @@ export default function ApplicationsContent({
     applications,
 }: ApplicationsContentProps) {
     const [search, setSearch] = useState("");
+    const [status, setStatus] = useState<ApplicationStatus | "all">("all");
+    const [sort, setSort] = useState<ApplicationSort>("none");
 
     const filteredApplications = useMemo(() => {
         const searchTerm = search.trim().toLowerCase();
 
-        if (searchTerm.length < 2) {
-            return applications;
+        const matchingApplications = applications.filter((application) => {
+            const matchesSearch =
+                searchTerm.length < 2 ||
+                application.company.toLowerCase().includes(searchTerm) ||
+                application.position.toLowerCase().includes(searchTerm);
+            const matchesStatus = status === "all" || application.status === status;
+
+            return matchesSearch && matchesStatus;
+        });
+
+        if (sort === "none") {
+            return matchingApplications;
         }
 
-        return applications.filter((application) => {
-            return (
-                application.company.toLowerCase().includes(searchTerm) ||
-                application.position.toLowerCase().includes(searchTerm)
-            );
+        return [...matchingApplications].sort((firstApplication, secondApplication) => {
+            switch (sort) {
+                case "oldest":
+                    return firstApplication.appliedDate.localeCompare(secondApplication.appliedDate);
+                case "company-asc":
+                    return firstApplication.company.localeCompare(secondApplication.company);
+                case "company-desc":
+                    return secondApplication.company.localeCompare(firstApplication.company);
+                case "newest":
+                default:
+                    return secondApplication.appliedDate.localeCompare(firstApplication.appliedDate);
+            }
         });
-    }, [applications, search]);
+    }, [applications, search, sort, status]);
 
     return (
         <>
             <ApplicationFilters
                 search={search}
                 onSearchChange={setSearch}
+                status={status}
+                onStatusChange={setStatus}
+                sort={sort}
+                onSortChange={setSort}
             />
 
             {filteredApplications.length === 0 ? (

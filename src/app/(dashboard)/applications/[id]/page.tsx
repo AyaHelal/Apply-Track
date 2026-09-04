@@ -1,5 +1,12 @@
 import Link from "next/link";
-import { ArrowLeft, BriefcaseBusiness, CalendarDays, Pencil, Trash2 } from "lucide-react";
+import {
+  ArrowLeft,
+  BriefcaseBusiness,
+  CalendarDays,
+  ExternalLink,
+  Pencil,
+  Trash2,
+} from "lucide-react";
 
 import StatusBadge from "@/components/ui/StatusBadge";
 import Button from "@/components/ui/Button";
@@ -159,6 +166,35 @@ export default async function ApplicationDetailsPage({
               </p>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Job posting and notes */}
+      <section className="grid gap-6 sm:grid-cols-2">
+        <div className="rounded-xl border border-border bg-surface p-5 sm:p-6">
+          <p className="text-xs font-medium text-text-secondary">
+            Job Posting
+          </p>
+
+          <a
+            href={application.jobUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-2 inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors hover:text-primary-hover"
+          >
+            View Job Posting
+            <ExternalLink size={16} />
+          </a>
+        </div>
+
+        <div className="rounded-xl border border-border bg-surface p-5 sm:p-6">
+          <p className="text-xs font-medium text-text-secondary">
+            Notes
+          </p>
+
+          <p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-text-primary">
+            {application.notes || "No notes added."}
+          </p>
         </div>
       </section>
     </div>
