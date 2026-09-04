@@ -1,5 +1,6 @@
 export type ApplicationStatus =
     | "Applied"
+    | "Assessment"
     | "Interview"
     | "Offer"
     | "Rejected";
@@ -9,5 +10,7 @@ export type Application = {
     company: string;
     position: string;
     status: ApplicationStatus;
-    date: string;
+    appliedDate: string;
+    jobUrl: string;
+    notes: string;
 };

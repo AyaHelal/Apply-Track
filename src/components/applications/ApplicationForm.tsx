@@ -13,7 +13,7 @@ export default function ApplicationForm() {
     const [position, setPosition] = useState("");
     const [status, setStatus] =
         useState<ApplicationStatus>("Applied");
-    const [date, setDate] = useState("");
+    const [appliedDate, setAppliedDate] = useState("");
     const [notes, setNotes] = useState("");
 
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -72,12 +72,11 @@ export default function ApplicationForm() {
             {/* Date */}
             <div className="space-y-2">
                 <Input
-                    id="date"
+                    id="appliedDate"
                     label="Applied Date"
                     type="date"
-                    value={date}
-                    onChange={(event) => setDate(event.target.value)}
-                    required
+                    value={appliedDate}
+                    onChange={(event) => setAppliedDate(event.target.value)}
                 />
             </div>
 

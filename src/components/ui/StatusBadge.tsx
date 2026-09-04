@@ -9,6 +9,7 @@ const statusStyles: Record<ApplicationStatus, string> = {
     Interview: "bg-warning/10 text-warning",
     Offer: "bg-success/10 text-success",
     Rejected: "bg-danger/10 text-danger",
+    Assessment: "bg-warning/30 text-warning",
 };
 
 export default function StatusBadge({

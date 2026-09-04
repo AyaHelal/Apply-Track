@@ -3,32 +3,8 @@ import { ArrowLeft, BriefcaseBusiness, CalendarDays, Pencil, Trash2 } from "luci
 
 import StatusBadge from "@/components/ui/StatusBadge";
 import Button from "@/components/ui/Button";
+import { applications } from "@/data/applications";
 
-import type { Application } from "@/types/application";
-
-const applications: Application[] = [
-  {
-    id: "1",
-    company: "Google",
-    position: "Frontend Developer",
-    status: "Interview",
-    date: "Aug 20, 2026",
-  },
-  {
-    id: "2",
-    company: "Microsoft",
-    position: "React Developer",
-    status: "Applied",
-    date: "Aug 18, 2026",
-  },
-  {
-    id: "3",
-    company: "Amazon",
-    position: "Frontend Engineer",
-    status: "Rejected",
-    date: "Aug 15, 2026",
-  },
-];
 
 type ApplicationDetailsPageProps = {
   params: Promise<{
@@ -179,7 +155,7 @@ export default async function ApplicationDetailsPage({
               </p>
 
               <p className="mt-1 font-medium text-text-primary">
-                {application.date}
+                {application.appliedDate}
               </p>
             </div>
           </div>
