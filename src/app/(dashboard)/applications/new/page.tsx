@@ -4,7 +4,7 @@ import ApplicationForm from "@/components/applications/ApplicationForm";
 export default function NewApplicationPage() {
   return (
     <div className="mx-auto max-w-2xl space-y-8">
-      <div>
+      <div className="motion-rise-in">
 
         <h1 className="text-2xl font-bold text-text-primary">
           Add Application
@@ -15,7 +15,9 @@ export default function NewApplicationPage() {
         </p>
       </div>
 
-      <ApplicationForm />
+      <div className="motion-rise-in">
+        <ApplicationForm />
+      </div>
     </div>
   );
 }

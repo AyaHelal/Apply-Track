@@ -1,6 +1,6 @@
 export default function LoginPage() {
   return (
-    <div>
+    <div className="motion-rise-in">
       <h1>Login</h1>
     </div>
   );

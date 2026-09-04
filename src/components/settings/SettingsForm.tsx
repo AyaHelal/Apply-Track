@@ -6,8 +6,10 @@ import { Save } from "lucide-react";
 import Input from "@/components/ui/Input";
 import Select from "@/components/ui/Select";
 import Button from "@/components/ui/Button";
+import { useToast } from "@/components/ui/ToastProvider";
 
 export default function SettingsForm() {
+    const { showToast } = useToast();
     const [name, setName] = useState("Aya");
     const [email, setEmail] = useState("aya@example.com");
     const [jobTitle, setJobTitle] = useState("Frontend Developer");
@@ -15,13 +17,13 @@ export default function SettingsForm() {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-
+        showToast("Settings changes submitted.");
     };
 
     return (
         <form
             onSubmit={handleSubmit}
-            className="max-w-3xl space-y-6"
+            className="motion-stagger max-w-3xl space-y-6"
         >
             {/* Profile */}
             <section className="rounded-xl border border-border bg-surface">

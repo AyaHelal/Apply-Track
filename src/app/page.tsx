@@ -5,7 +5,7 @@ import ThemeToggle from "@/components/ui/ThemeToggle";
 
 export default function LandingPage() {
   return (
-    <main className="min-h-screen bg-background text-text-primary">
+    <main className="motion-fade-in min-h-screen bg-background text-text-primary">
       {/* Header */}
       <header className="border-b border-border bg-surface">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -32,7 +32,7 @@ export default function LandingPage() {
 
       {/* Hero */}
       <section className="px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
-        <div className="mx-auto max-w-4xl text-center">
+        <div className="motion-rise-in mx-auto max-w-4xl text-center">
           <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
             <BriefcaseBusiness size={28} />
           </div>
@@ -70,7 +70,7 @@ export default function LandingPage() {
 
       {/* Features */}
       <section className="border-t border-border bg-surface-muted px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto grid max-w-5xl gap-6 sm:grid-cols-3">
+        <div className="motion-stagger mx-auto grid max-w-5xl gap-6 sm:grid-cols-3">
           <FeatureCard
             icon={BriefcaseBusiness}
             title="Track Applications"

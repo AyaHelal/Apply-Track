@@ -28,7 +28,7 @@ export default function DashboardPage() {
       <section>
         <h2 className="sr-only">Application statistics</h2>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="motion-stagger grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <StatCard
             title="Total Applications"
             value={24}
@@ -74,7 +74,7 @@ export default function DashboardPage() {
           </p>
         </div>
 
-        <div className="rounded-xl border border-border bg-surface p-6">
+        <div className="motion-rise-in rounded-xl border border-border bg-surface p-6">
           <p className="text-text-secondary">
             No applications yet.
           </p>

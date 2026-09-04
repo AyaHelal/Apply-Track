@@ -20,7 +20,7 @@ export default async function DashboardLayout({
       <div className="flex">
         <SidebarShell initialCollapsed={sidebarCollapsed} />
 
-        <main className="flex-1 min-w-0 p-6">
+        <main className="motion-fade-in min-w-0 flex-1 p-6">
           {children}
         </main>
       </div>

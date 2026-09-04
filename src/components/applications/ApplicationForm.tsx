@@ -7,8 +7,10 @@ import ButtonLink from "@/components/ui/ButtonLink";
 import type { ApplicationStatus } from "@/types/application";
 import Input from "@/components/ui/Input";
 import Select from "@/components/ui/Select";
+import { useToast } from "@/components/ui/ToastProvider";
 
 export default function ApplicationForm() {
+    const { showToast } = useToast();
     const [company, setCompany] = useState("");
     const [position, setPosition] = useState("");
     const [status, setStatus] =
@@ -18,13 +20,13 @@ export default function ApplicationForm() {
 
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
-
+        showToast("Application details submitted.");
     }
 
     return (
         <form
             onSubmit={handleSubmit}
-            className="space-y-6 rounded-xl border border-border bg-surface p-4 sm:p-6"
+            className="motion-stagger space-y-6 rounded-xl border border-border bg-surface p-4 sm:p-6"
         >
             {/* Company */}
             <div>

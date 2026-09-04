@@ -3,7 +3,7 @@ import SettingsForm from "@/components/settings/SettingsForm";
 export default function SettingsPage() {
   return (
     <div className="mx-auto max-w-2xl space-y-8">
-      <div>
+      <div className="motion-rise-in">
         <h1 className="text-2xl font-bold text-text-primary">
           Settings
         </h1>
@@ -13,7 +13,9 @@ export default function SettingsPage() {
         </p>
       </div>
 
-      <SettingsForm />
+      <div className="motion-rise-in">
+        <SettingsForm />
+      </div>
     </div>
   );
 }

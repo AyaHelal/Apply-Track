@@ -55,27 +55,35 @@ export default function ApplicationsContent({
         });
     }, [applications, search, sort, status]);
 
+    const hasActiveFilters = search.trim().length >= 2 || status !== "all";
+
     return (
         <>
-            <ApplicationFilters
+            <div className="motion-rise-in">
+                <ApplicationFilters
                 search={search}
                 onSearchChange={setSearch}
                 status={status}
                 onStatusChange={setStatus}
                 sort={sort}
                 onSortChange={setSort}
-            />
+                />
+            </div>
 
             {filteredApplications.length === 0 ? (
                 <EmptyState
                     icon={BriefcaseBusiness}
-                    title="No applications yet"
-                    description="Start tracking your job search by adding your first application."
+                    title={hasActiveFilters ? "No matching applications" : "No applications yet"}
+                    description={
+                        hasActiveFilters
+                            ? "Try adjusting your search or status filter."
+                            : "Start tracking your job search by adding your first application."
+                    }
                 />
             ) : (
                 <>
                     {/* Mobile */}
-                    <div className="space-y-4 sm:hidden">
+                    <div className="motion-stagger space-y-4 sm:hidden">
                         {filteredApplications.map((application) => (
                             <ApplicationCard
                                 key={application.id}
@@ -85,7 +93,7 @@ export default function ApplicationsContent({
                     </div>
 
                     {/* Desktop */}
-                    <section className="hidden sm:block">
+                    <section className="motion-rise-in hidden sm:block">
                         <div className="overflow-hidden rounded-xl border border-border bg-surface">
                             <div className="overflow-x-auto">
                                 <table className="w-full min-w-175">
