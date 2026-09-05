@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
   BriefcaseBusiness,
-  Settings,
+    UserRound,
 } from "lucide-react";
 
 const links = [
@@ -20,9 +20,9 @@ const links = [
         icon: BriefcaseBusiness,
     },
     {
-        href: "/settings",
-        label: "Settings",
-        icon: Settings,
+        href: "/profile",
+        label: "Profile",
+        icon: UserRound,
     },
 ];
 

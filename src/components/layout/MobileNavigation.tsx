@@ -65,11 +65,11 @@ export default function MobileNavigation() {
                     </Link>
 
                     <Link
-                        href="/settings"
+                        href="/profile"
                         onClick={() => setIsOpen(false)}
                         className="block rounded-lg px-4 py-3 text-text-secondary hover:bg-surface-muted hover:text-primary"
                     >
-                        Settings
+                        Profile
                     </Link>
                 </nav>
             </aside>

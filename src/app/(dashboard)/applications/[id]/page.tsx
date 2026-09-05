@@ -4,29 +4,31 @@ import {
   BriefcaseBusiness,
   CalendarDays,
   ExternalLink,
-  Pencil,
-  Trash2,
 } from "lucide-react";
 
 import StatusBadge from "@/components/ui/StatusBadge";
-import Button from "@/components/ui/Button";
-import { applications } from "@/data/applications";
+import { getApplicationById } from "@/lib/db";
+import ApplicationActions from "@/components/applications/ApplicationActions";
+import ApplicationSavedToast from "@/components/applications/ApplicationSavedToast";
 
 
 type ApplicationDetailsPageProps = {
   params: Promise<{
     id: string;
   }>;
+  searchParams: Promise<{
+    saved?: string;
+  }>;
 };
 
 export default async function ApplicationDetailsPage({
   params,
+  searchParams,
 }: ApplicationDetailsPageProps) {
   const { id } = await params;
+  const { saved } = await searchParams;
 
-  const application = applications.find(
-    (application) => application.id === id
-  );
+  const application = getApplicationById(id);
 
   if (!application) {
     return (
@@ -54,6 +56,8 @@ export default async function ApplicationDetailsPage({
 
   return (
     <div className="space-y-8">
+      <ApplicationSavedToast saved={saved} />
+
       {/* Back */}
       <Link
         href="/applications"
@@ -79,17 +83,7 @@ export default async function ApplicationDetailsPage({
           </p>
         </div>
 
-        <div className="flex flex-wrap gap-3">
-          <Button variant="secondary" className="flex-1 cursor-pointer sm:flex-none">
-            <Pencil size={17} />
-            Edit
-          </Button>
-
-          <Button variant="danger" className="flex-1 cursor-pointer sm:flex-none">
-            <Trash2 size={17} />
-            Delete
-          </Button>
-        </div>
+        <ApplicationActions application={application} />
       </div>
 
       {/* Information */}
@@ -176,15 +170,21 @@ export default async function ApplicationDetailsPage({
             Job Posting
           </p>
 
-          <a
-            href={application.jobUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-2 inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors hover:text-primary-hover"
-          >
-            View Job Posting
-            <ExternalLink size={16} />
-          </a>
+          {application.jobUrl ? (
+            <a
+              href={application.jobUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-2 inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors hover:text-primary-hover"
+            >
+              View Job Posting
+              <ExternalLink size={16} />
+            </a>
+          ) : (
+            <p className="mt-2 text-sm text-text-secondary">
+              No job posting available.
+            </p>
+          )}
         </div>
 
         <div className="rounded-xl border border-border bg-surface p-5 sm:p-6">

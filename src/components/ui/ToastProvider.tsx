@@ -41,10 +41,15 @@ export default function ToastProvider({ children }: { children: ReactNode }) {
         (message: string, type: ToastType = "success") => {
             const id = Date.now() + Math.random();
 
-            setToasts((currentToasts) => [
-                ...currentToasts,
-                { id, message, type },
-            ]);
+            setToasts((currentToasts) => {
+                const isDuplicate = currentToasts.some(
+                    (toast) => toast.message === message && toast.type === type
+                );
+
+                return isDuplicate
+                    ? currentToasts
+                    : [...currentToasts, { id, message, type }];
+            });
         },
         []
     );

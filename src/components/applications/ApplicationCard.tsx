@@ -31,7 +31,7 @@ export default function ApplicationCard({
             {/* Footer */}
             <div className="mt-5 flex items-center justify-between border-t border-border pt-4">
                 <span className="text-sm text-text-secondary">
-                    {application.date}
+                    {application.appliedDate}
                 </span>
 
                 <Link

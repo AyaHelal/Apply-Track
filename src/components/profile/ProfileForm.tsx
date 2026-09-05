@@ -8,7 +8,7 @@ import Select from "@/components/ui/Select";
 import Button from "@/components/ui/Button";
 import { useToast } from "@/components/ui/ToastProvider";
 
-export default function SettingsForm() {
+export default function ProfileForm() {
     const { showToast } = useToast();
     const [name, setName] = useState("Aya");
     const [email, setEmail] = useState("aya@example.com");
@@ -17,7 +17,7 @@ export default function SettingsForm() {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        showToast("Settings changes submitted.");
+        showToast("Profile changes submitted.");
     };
 
     return (
@@ -25,17 +25,7 @@ export default function SettingsForm() {
             onSubmit={handleSubmit}
             className="motion-stagger max-w-3xl space-y-6"
         >
-            {/* Profile */}
             <section className="rounded-xl border border-border bg-surface">
-                <div className="border-b border-border px-6 py-5">
-                    <h2 className="font-semibold text-text-primary">
-                        Profile
-                    </h2>
-
-                    <p className="mt-1 text-sm text-text-secondary">
-                        Update your personal information.
-                    </p>
-                </div>
 
                 <div className="grid gap-5 p-4 sm:grid-cols-2 sm:gap-6 sm:p-6">
                     <Input
@@ -43,9 +33,7 @@ export default function SettingsForm() {
                         label="Name"
                         type="text"
                         value={name}
-                        onChange={(event) =>
-                            setName(event.target.value)
-                        }
+                        onChange={(event) => setName(event.target.value)}
                     />
 
                     <Input
@@ -53,9 +41,7 @@ export default function SettingsForm() {
                         label="Email"
                         type="email"
                         value={email}
-                        onChange={(event) =>
-                            setEmail(event.target.value)
-                        }
+                        onChange={(event) => setEmail(event.target.value)}
                     />
 
                     <div className="sm:col-span-2">
@@ -64,15 +50,12 @@ export default function SettingsForm() {
                             label="Job Title"
                             type="text"
                             value={jobTitle}
-                            onChange={(event) =>
-                                setJobTitle(event.target.value)
-                            }
+                            onChange={(event) => setJobTitle(event.target.value)}
                         />
                     </div>
                 </div>
             </section>
 
-            {/* Preferences */}
             <section className="rounded-xl border border-border bg-surface">
                 <div className="border-b border-border px-6 py-5">
                     <h2 className="font-semibold text-text-primary">
@@ -89,9 +72,7 @@ export default function SettingsForm() {
                         id="notifications"
                         label="Notifications"
                         value={notifications}
-                        onChange={(event) =>
-                            setNotifications(event.target.value)
-                        }
+                        onChange={(event) => setNotifications(event.target.value)}
                     >
                         <option value="Enabled">Enabled</option>
                         <option value="Disabled">Disabled</option>
@@ -99,11 +80,10 @@ export default function SettingsForm() {
                 </div>
             </section>
 
-            {/* Actions */}
             <div className="flex justify-stretch sm:justify-end">
                 <Button type="submit" className="w-full cursor-pointer sm:w-auto">
                     <Save size={17} />
-                    Save Changes
+                    Save Profile
                 </Button>
             </div>
         </form>
