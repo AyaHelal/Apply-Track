@@ -11,7 +11,7 @@ export default async function ApplicationsPage({
   searchParams: Promise<{ deleted?: string }>;
 }) {
   const { deleted } = await searchParams;
-  const applications = getApplications();
+  const applications = await getApplications();
   return (
     <div className="space-y-8">
       <ApplicationDeletedToast deleted={deleted} />
@@ -27,12 +27,10 @@ export default async function ApplicationsPage({
           </p>
         </div>
 
-        {applications.length > 0 && (
-          <ButtonLink href="/applications/new">
-            <Plus size={18} />
-            Add Application
-          </ButtonLink>
-        )}
+        <ButtonLink href="/applications/new">
+          <Plus size={18} />
+          Add Application
+        </ButtonLink>
       </div>
 
       <ApplicationsContent applications={applications} />

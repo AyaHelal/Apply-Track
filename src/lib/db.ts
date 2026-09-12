@@ -1,14 +1,5 @@
-import fs from "node:fs";
-import path from "node:path";
-
 import type { Application, ApplicationStatus } from "@/types/application";
-
-const applicationsFilePath = path.join(
-	process.cwd(),
-	"src",
-	"data",
-	"applications.json"
-);
+import { prisma } from "@/lib/prisma";
 
 export type ApplicationInput = {
 	company: string;
@@ -19,72 +10,65 @@ export type ApplicationInput = {
 	notes: string;
 };
 
-function readApplications() {
-	const fileContents = fs.readFileSync(applicationsFilePath, "utf8");
-
-	return JSON.parse(fileContents) as Application[];
-}
-
-function writeApplications(applicationList: Application[]) {
-	fs.writeFileSync(
-		applicationsFilePath,
-		`${JSON.stringify(applicationList, null, 4)}\n`,
-		"utf8"
-	);
-}
-
-export function getApplications() {
-	return readApplications();
-}
-
-export function getApplicationById(id: string) {
-	return readApplications().find((application) => application.id === id);
-}
-
-export function createApplication(input: ApplicationInput): Application {
-	const application = {
-		id: crypto.randomUUID(),
-		...input,
+function toApplication(record: {
+	id: string;
+	company: string;
+	position: string;
+	status: string;
+	appliedDate: string;
+	jobUrl: string;
+	notes: string;
+}): Application {
+	return {
+		...record,
+		status: record.status as ApplicationStatus,
 	};
-
-	writeApplications([application, ...readApplications()]);
-
-	return application;
 }
 
-export function updateApplication(id: string, input: ApplicationInput) {
-	const applicationList = readApplications();
-	const applicationIndex = applicationList.findIndex(
-		(application) => application.id === id
-	);
+export async function getApplications(): Promise<Application[]> {
+	const applications = await prisma.application.findMany({
+		orderBy: { createdAt: "desc" },
+	});
 
-	if (applicationIndex === -1) {
+	return applications.map(toApplication);
+}
+
+export async function getApplicationById(
+	id: string
+): Promise<Application | undefined> {
+	const application = await prisma.application.findUnique({ where: { id } });
+
+	return application ? toApplication(application) : undefined;
+}
+
+export async function createApplication(
+	input: ApplicationInput
+): Promise<Application> {
+	const application = await prisma.application.create({ data: input });
+
+	return toApplication(application);
+}
+
+export async function updateApplication(
+	id: string,
+	input: ApplicationInput
+): Promise<Application | undefined> {
+	const result = await prisma.application.updateMany({
+		where: { id },
+		data: input,
+	});
+
+	if (result.count === 0) {
 		return undefined;
 	}
 
-	const updatedApplication = {
-		id,
-		...input,
-	};
+	const application = await prisma.application.findUniqueOrThrow({ where: { id } });
 
-	writeApplications(applicationList.map((application, index) =>
-		index === applicationIndex ? updatedApplication : application
-	));
-
-	return updatedApplication;
+	return toApplication(application);
 }
 
-export function deleteApplication(id: string) {
-	const applicationList = readApplications();
-	const updatedApplications = applicationList.filter(
-		(application) => application.id !== id
-	);
+export async function deleteApplication(id: string): Promise<boolean> {
+	const result = await prisma.application.deleteMany({ where: { id } });
 
-	if (updatedApplications.length === applicationList.length) {
-		return false;
-	}
-
-	writeApplications(updatedApplications);
-
-	return true;
+	return result.count > 0;
 }

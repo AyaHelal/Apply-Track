@@ -12,7 +12,7 @@ export default async function EditApplicationPage({
     params,
 }: EditApplicationPageProps) {
     const { id } = await params;
-    const application = getApplicationById(id);
+    const application = await getApplicationById(id);
 
     if (!application) {
         return (

@@ -28,7 +28,7 @@ export default async function ApplicationDetailsPage({
   const { id } = await params;
   const { saved } = await searchParams;
 
-  const application = getApplicationById(id);
+  const application = await getApplicationById(id);
 
   if (!application) {
     return (

@@ -95,7 +95,7 @@ export async function createApplication(
     }
 
     try {
-        const application = createApplicationRecord(input);
+		const application = await createApplicationRecord(input);
 
         revalidatePath("/applications");
         revalidatePath("/dashboard");
@@ -128,7 +128,7 @@ export async function updateApplication(
     let application;
 
     try {
-        application = updateApplicationRecord(id, input);
+		application = await updateApplicationRecord(id, input);
     } catch {
         return {
             status: "error" as const,
@@ -165,7 +165,7 @@ export async function deleteApplication(
     let deleted;
 
     try {
-        deleted = deleteApplicationRecord(id);
+		deleted = await deleteApplicationRecord(id);
     } catch {
         return {
             status: "error" as const,
