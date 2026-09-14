@@ -1,36 +1,217 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<p align="center">
+  <img src="public/ApplyLogo.jpg" alt="ApplyTrack Logo" width="180">
+</p>
 
-## Getting Started
+<h1 align="center">ApplyTrack</h1>
 
-First, run the development server:
+<p align="center">
+  A modern job application tracking platform that helps job seekers organize,
+  track, and manage their job applications in one place.
+</p>
+
+---
+
+## 🌐 Live Demo
+
+🔗 [Open the live demo](https://apply-track-demo.vercel.app)
+
+> This is a placeholder link and will be updated with the official deployment URL.
+
+---
+
+## 🚀 Features
+
+- 🔐 User Authentication with Clerk
+- 📋 Create, Edit and Delete Job Applications
+- 📊 Dashboard with Application Statistics
+- 🔍 Search Applications
+- 🏷️ Application Status Tracking
+- 👤 Profile Management
+- 📝 Application Details & Notes
+- 🔗 Job URL Tracking
+- 📱 Fully Responsive Design
+- 🌙 Dark and Light Mode
+- ⚡ Server Actions for secure data operations
+- 🔒 User-specific application data
+- 🎨 Clean and modern UI
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+
+### Authentication
+
+- Clerk
+
+### Database
+
+- PostgreSQL
+- Prisma ORM
+
+### UI & Icons
+
+- Lucide React
+
+### Deployment
+
+- Vercel
+
+### Development
+
+- Git
+- GitHub
+
+---
+
+## 🏗️ Architecture
+
+```text
+User
+ │
+ ▼
+Next.js Application
+ │
+ ├── Clerk
+ │    └── Authentication
+ │
+ ├── Server Actions
+ │    └── Business Operations
+ │
+ ├── Prisma
+ │    └── Database Access
+ │
+ └── PostgreSQL
+      └── Application Data
+```
+
+---
+
+
+## ⚙️ Installation
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/AyaHelal/Apply-Track.git
+```
+
+### 2. Go to the project
+
+```bash
+cd ApplyTrack
+```
+
+### 3. Install dependencies
+
+```bash
+npm install
+```
+
+### 4. Configure environment variables
+
+Create one local environment file named `.env`:
+
+```env
+DATABASE_URL="your-postgresql-connection-string"
+
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="your-clerk-publishable-key"
+CLERK_SECRET_KEY="your-clerk-secret-key"
+
+NEXT_PUBLIC_CLERK_SIGN_IN_URL="/login"
+NEXT_PUBLIC_CLERK_SIGN_UP_URL="/register"
+NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL="/dashboard"
+NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL="/dashboard"
+```
+
+> Keep all local environment variables in `.env`. Never commit this file or expose your secret keys.
+
+### 5. Generate Prisma Client
+
+```bash
+npx prisma generate
+```
+
+### 6. Run database migrations
+
+```bash
+npx prisma migrate dev
+```
+
+### 7. Start the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🗄️ Database
 
-## Learn More
+ApplyTrack uses **PostgreSQL** with **Prisma ORM**.
 
-To learn more about Next.js, take a look at the following resources:
+The main database models are:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```text
+User
+ │
+ └── Application[]
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Each application belongs to an authenticated user, ensuring that users can only access their own application data.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🔐 Authentication
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Authentication is handled by **Clerk**.
+
+The application uses Clerk for:
+
+- Sign Up
+- Sign In
+- Sign Out
+- User Identity
+- Profile Image
+- User Information
+
+The authenticated Clerk user ID is used to associate application data with the correct user in PostgreSQL.
+
+---
+
+## 📦 Build
+
+Create a production build:
+
+```bash
+npm run build
+```
+
+---
+
+## 🚀 Deployment
+
+ApplyTrack is deployed using **Vercel**.
+
+The production environment uses:
+
+- Vercel for hosting
+- Clerk for authentication
+- PostgreSQL for persistent data
+- Prisma for database access
+
+---
+
+## 👩‍💻 Author
+
+**Aya Helal**
+
+- LinkedIn: [Aya Helal](https://www.linkedin.com/in/aya-helal-9a10682b0/)
