@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Pencil, Trash2, X } from "lucide-react";
-import { useActionState, useEffect, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { useFormStatus } from "react-dom";
 
 import {
@@ -19,6 +19,8 @@ export default function ApplicationActions({
     application: Application;
 }) {
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const deleteTriggerRef = useRef<HTMLButtonElement>(null);
+    const dialogCloseRef = useRef<HTMLButtonElement>(null);
     const { showToast } = useToast();
     const deleteAction = deleteApplication.bind(null, application.id);
     const [state, formAction] = useActionState(
@@ -36,8 +38,11 @@ export default function ApplicationActions({
 
     useEffect(() => {
         if (!isDeleteModalOpen) {
+            deleteTriggerRef.current?.focus();
             return;
         }
+
+        dialogCloseRef.current?.focus();
 
         const handleEscape = (event: KeyboardEvent) => {
             if (event.key === "Escape") {
@@ -64,6 +69,7 @@ export default function ApplicationActions({
                 type="button"
                 variant="danger"
                 onClick={() => setIsDeleteModalOpen(true)}
+                ref={deleteTriggerRef}
                 className="flex-1 cursor-pointer sm:flex-none"
             >
                 <Trash2 size={17} />
@@ -102,6 +108,7 @@ export default function ApplicationActions({
 
                             <button
                                 type="button"
+                                ref={dialogCloseRef}
                                 onClick={() => setIsDeleteModalOpen(false)}
                                 aria-label="Close delete confirmation"
                                 className="rounded-lg p-1.5 text-text-muted transition-colors hover:bg-surface-muted hover:text-text-primary"

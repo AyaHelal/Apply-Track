@@ -43,6 +43,12 @@ export default function ApplicationForm({
     useEffect(() => {
         if (state.status === "error" && state.message) {
             showToast(state.message, "error");
+
+            const firstErrorField = Object.keys(state.fieldErrors ?? {})[0];
+            if (firstErrorField) {
+                document.getElementById(firstErrorField)?.focus();
+            }
+
             return;
         }
 
@@ -69,7 +75,7 @@ export default function ApplicationForm({
                     onChange={(event) => setCompany(event.target.value)}
                     placeholder="e.g. Google"
                     aria-invalid={Boolean(state.fieldErrors?.company)}
-                    aria-describedby={state.fieldErrors?.company ? "company-error" : undefined}
+                    aria-describedby="company-error"
                     required
                 />
                 <FieldError id="company-error" message={state.fieldErrors?.company} />
@@ -86,7 +92,7 @@ export default function ApplicationForm({
                     onChange={(event) => setPosition(event.target.value)}
                     placeholder="e.g. Frontend Developer"
                     aria-invalid={Boolean(state.fieldErrors?.position)}
-                    aria-describedby={state.fieldErrors?.position ? "position-error" : undefined}
+                    aria-describedby="position-error"
                     required
                 />
                 <FieldError id="position-error" message={state.fieldErrors?.position} />
@@ -122,7 +128,7 @@ export default function ApplicationForm({
                     value={appliedDate}
                     onChange={(event) => setAppliedDate(event.target.value)}
                     aria-invalid={Boolean(state.fieldErrors?.appliedDate)}
-                    aria-describedby={state.fieldErrors?.appliedDate ? "applied-date-error" : undefined}
+                    aria-describedby="applied-date-error"
                 />
                 <FieldError id="applied-date-error" message={state.fieldErrors?.appliedDate} />
             </div>
@@ -138,7 +144,7 @@ export default function ApplicationForm({
                     onChange={(event) => setJobUrl(event.target.value)}
                     placeholder="https://example.com/job"
                     aria-invalid={Boolean(state.fieldErrors?.jobUrl)}
-                    aria-describedby={state.fieldErrors?.jobUrl ? "job-url-error" : undefined}
+                    aria-describedby="job-url-error"
                 />
                 <FieldError id="job-url-error" message={state.fieldErrors?.jobUrl} />
             </div>
@@ -159,8 +165,11 @@ export default function ApplicationForm({
                     onChange={(event) => setNotes(event.target.value)}
                     placeholder="Add some notes..."
                     rows={4}
-                    className="w-full resize-none rounded-lg border border-border bg-background px-4 py-2.5 text-text-primary outline-none focus:border-primary"
+                    aria-invalid={Boolean(state.fieldErrors?.notes)}
+                    aria-describedby="notes-error"
+                    className="w-full resize-none rounded-lg border border-border bg-background px-4 py-2.5 text-text-primary outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10"
                 />
+                <FieldError id="notes-error" message={state.fieldErrors?.notes} />
             </div>
 
             {/* Actions */}

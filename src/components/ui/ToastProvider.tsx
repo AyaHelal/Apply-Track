@@ -59,7 +59,7 @@ export default function ToastProvider({ children }: { children: ReactNode }) {
             {children}
 
             <div
-                aria-live="polite"
+                aria-live="assertive"
                 aria-atomic="true"
                 className="fixed right-4 top-4 z-50 flex w-[calc(100%-2rem)] max-w-sm flex-col gap-3"
             >
@@ -92,7 +92,10 @@ function ToastItem({
     const colorClass = toast.type === "success" ? "text-success" : "text-danger";
 
     return (
-        <div className="motion-rise-in flex items-start gap-3 rounded-lg border border-border bg-surface p-4 shadow-lg">
+        <div
+            role={toast.type === "error" ? "alert" : "status"}
+            className="motion-rise-in flex items-start gap-3 rounded-lg border border-border bg-surface p-4 shadow-lg"
+        >
             <Icon size={20} className={`mt-0.5 shrink-0 ${colorClass}`} />
 
             <p className="flex-1 text-sm font-medium text-text-primary">
