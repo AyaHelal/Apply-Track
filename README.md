@@ -48,7 +48,7 @@
 
 ### Database
 
-- PostgreSQL
+- Neon PostgreSQL
 - Prisma ORM
 
 ### UI & Icons
@@ -152,7 +152,7 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## 🗄️ Database
 
-ApplyTrack uses **PostgreSQL** with **Prisma ORM**.
+ApplyTrack uses **Neon PostgreSQL** with **Prisma ORM**. Neon provides the hosted PostgreSQL database used by the application.
 
 The main database models are:
 
@@ -162,7 +162,7 @@ User
  └── Application[]
 ```
 
-Each application belongs to an authenticated user, ensuring that users can only access their own application data.
+Each application belongs to an authenticated user, ensuring that users can only access their own application data. The database connection is configured through the `DATABASE_URL` environment variable provided by Neon.
 
 ---
 
