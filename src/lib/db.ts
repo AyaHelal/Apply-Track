@@ -25,8 +25,9 @@ function toApplication(record: {
 	};
 }
 
-export async function getApplications(): Promise<Application[]> {
+export async function getApplications(userId: string): Promise<Application[]> {
 	const applications = await prisma.application.findMany({
+		where: { userId },
 		orderBy: { createdAt: "desc" },
 	});
 
@@ -34,27 +35,37 @@ export async function getApplications(): Promise<Application[]> {
 }
 
 export async function getApplicationById(
-	id: string
+	id: string,
+	userId: string
 ): Promise<Application | undefined> {
-	const application = await prisma.application.findUnique({ where: { id } });
+	const application = await prisma.application.findFirst({
+		where: { id, userId },
+	});
 
 	return application ? toApplication(application) : undefined;
 }
 
 export async function createApplication(
-	input: ApplicationInput
+	input: ApplicationInput,
+	userId: string
 ): Promise<Application> {
-	const application = await prisma.application.create({ data: input });
+	const application = await prisma.application.create({
+		data: {
+			...input,
+			userId,
+		},
+	});
 
 	return toApplication(application);
 }
 
 export async function updateApplication(
 	id: string,
-	input: ApplicationInput
+	input: ApplicationInput,
+	userId: string
 ): Promise<Application | undefined> {
 	const result = await prisma.application.updateMany({
-		where: { id },
+		where: { id, userId },
 		data: input,
 	});
 
@@ -62,13 +73,40 @@ export async function updateApplication(
 		return undefined;
 	}
 
-	const application = await prisma.application.findUniqueOrThrow({ where: { id } });
+	const application = await prisma.application.findFirstOrThrow({
+		where: { id, userId },
+	});
 
 	return toApplication(application);
 }
 
-export async function deleteApplication(id: string): Promise<boolean> {
-	const result = await prisma.application.deleteMany({ where: { id } });
+export async function deleteApplication(
+	id: string,
+	userId: string
+): Promise<boolean> {
+	const result = await prisma.application.deleteMany({
+		where: { id, userId },
+	});
 
 	return result.count > 0;
+}
+
+export async function getApplicationStats(userId: string) {
+	const applications = await prisma.application.findMany({
+		where: { userId },
+		orderBy: { createdAt: "desc" },
+	});
+
+	const total = applications.length;
+	const interviews = applications.filter((app) => app.status === "Interview").length;
+	const offers = applications.filter((app) => app.status === "Offer").length;
+	const rejected = applications.filter((app) => app.status === "Rejected").length;
+
+	return {
+		total,
+		interviews,
+		offers,
+		rejected,
+		recent: applications.slice(0, 5).map(toApplication),
+	};
 }

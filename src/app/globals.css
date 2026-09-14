@@ -111,23 +111,24 @@
   animation: rise-in 420ms ease-out both;
 }
 
-.motion-stagger > *:nth-child(2) {
+.motion-stagger>*:nth-child(2) {
   animation-delay: 60ms;
 }
 
-.motion-stagger > *:nth-child(3) {
+.motion-stagger>*:nth-child(3) {
   animation-delay: 120ms;
 }
 
-.motion-stagger > *:nth-child(4) {
+.motion-stagger>*:nth-child(4) {
   animation-delay: 180ms;
 }
 
-.motion-stagger > *:nth-child(5) {
+.motion-stagger>*:nth-child(5) {
   animation-delay: 240ms;
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {

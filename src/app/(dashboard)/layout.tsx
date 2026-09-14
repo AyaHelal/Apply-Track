@@ -2,12 +2,15 @@ import { cookies } from "next/headers";
 
 import Navbar from "@/components/layout/Navbar";
 import SidebarShell from "@/components/layout/SidebarShell";
+import { syncUser } from "@/lib/auth";
 
 export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  await syncUser();
+
   const cookieStore = await cookies();
 
   const sidebarCollapsed =

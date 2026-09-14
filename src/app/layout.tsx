@@ -1,3 +1,4 @@
+import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -14,11 +15,18 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Apply Track",
+  title: {
+    default: "ApplyTrack — Job Application Tracker",
+    template: "%s | ApplyTrack",
+  },
   description: "A simple tracker to manage job applications, companies, and application statuses",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html
       lang="en"
@@ -42,7 +50,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         />
       </head>
       <body className="min-h-full flex flex-col">
-        <ToastProvider>{children}</ToastProvider>
+        <ClerkProvider>
+          <ToastProvider>{children}</ToastProvider>
+        </ClerkProvider>
       </body>
     </html>
   );

@@ -1,5 +1,10 @@
 
+import type { Metadata } from "next";
 import ApplicationForm from "@/components/applications/ApplicationForm";
+
+export const metadata: Metadata = {
+  title: "New Application",
+};
 
 export default function NewApplicationPage() {
   return (

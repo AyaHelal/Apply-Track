@@ -3,6 +3,13 @@ import { ArrowLeft } from "lucide-react";
 
 import ApplicationForm from "@/components/applications/ApplicationForm";
 import { getApplicationById } from "@/lib/db";
+import { getAuthenticatedUserId } from "@/lib/auth";
+
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Edit Application",
+};
 
 type EditApplicationPageProps = {
     params: Promise<{ id: string }>;
@@ -12,7 +19,8 @@ export default async function EditApplicationPage({
     params,
 }: EditApplicationPageProps) {
     const { id } = await params;
-    const application = await getApplicationById(id);
+    const userId = await getAuthenticatedUserId();
+    const application = await getApplicationById(id, userId);
 
     if (!application) {
         return (

@@ -3,7 +3,13 @@ import { Plus } from "lucide-react";
 import ButtonLink from "@/components/ui/ButtonLink";
 import ApplicationsContent from "@/components/applications/ApplicationsContent";
 import ApplicationDeletedToast from "@/components/applications/ApplicationDeletedToast";
+import type { Metadata } from "next";
 import { getApplications } from "@/lib/db";
+import { getAuthenticatedUserId } from "@/lib/auth";
+
+export const metadata: Metadata = {
+  title: "Applications",
+};
 
 export default async function ApplicationsPage({
   searchParams,
@@ -11,7 +17,9 @@ export default async function ApplicationsPage({
   searchParams: Promise<{ deleted?: string }>;
 }) {
   const { deleted } = await searchParams;
-  const applications = await getApplications();
+  const userId = await getAuthenticatedUserId();
+  const applications = await getApplications(userId);
+
   return (
     <div className="space-y-8">
       <ApplicationDeletedToast deleted={deleted} />

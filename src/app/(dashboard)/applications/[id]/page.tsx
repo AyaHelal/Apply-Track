@@ -8,9 +8,11 @@ import {
 
 import StatusBadge from "@/components/ui/StatusBadge";
 import { getApplicationById } from "@/lib/db";
+import { getAuthenticatedUserId } from "@/lib/auth";
 import ApplicationActions from "@/components/applications/ApplicationActions";
 import ApplicationSavedToast from "@/components/applications/ApplicationSavedToast";
 
+import type { Metadata } from "next";
 
 type ApplicationDetailsPageProps = {
   params: Promise<{
@@ -21,14 +23,36 @@ type ApplicationDetailsPageProps = {
   }>;
 };
 
+export async function generateMetadata({
+  params,
+}: ApplicationDetailsPageProps): Promise<Metadata> {
+  const { id } = await params;
+  try {
+    const userId = await getAuthenticatedUserId();
+    const application = await getApplicationById(id, userId);
+
+    if (!application) {
+      return { title: "Application Not Found" };
+    }
+
+    return {
+      title: `${application.company} — ${application.position}`,
+      description: `Job application for ${application.position} at ${application.company}. Status: ${application.status}.`,
+    };
+  } catch {
+    return { title: "Application Details" };
+  }
+}
+
 export default async function ApplicationDetailsPage({
   params,
   searchParams,
 }: ApplicationDetailsPageProps) {
   const { id } = await params;
   const { saved } = await searchParams;
+  const userId = await getAuthenticatedUserId();
 
-  const application = await getApplicationById(id);
+  const application = await getApplicationById(id, userId);
 
   if (!application) {
     return (
@@ -47,7 +71,7 @@ export default async function ApplicationDetailsPage({
           </h1>
 
           <p className="mt-2 text-sm text-text-secondary">
-            The application that you are looking for does not exist.
+            The application that you are looking for does not exist or you do not have permission to view it.
           </p>
         </div>
       </div>

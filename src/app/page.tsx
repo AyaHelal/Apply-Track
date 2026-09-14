@@ -13,17 +13,10 @@ export default function LandingPage() {
             href="/"
             className="flex items-center gap-2"
           >
-          <Logo/>
+            <Logo />
           </Link>
 
           <div className="flex items-center gap-3">
-            <Link
-              href="/login"
-              className="flex items-center gap-1.5 text-sm font-medium text-text-secondary transition-colors hover:text-primary"
-            >
-              Login
-              <LogIn size={17} />
-            </Link>
 
             <ThemeToggle />
           </div>

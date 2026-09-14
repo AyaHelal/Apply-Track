@@ -9,6 +9,7 @@ import {
     updateApplication as updateApplicationRecord,
     type ApplicationInput,
 } from "@/lib/db";
+import { getAuthenticatedUserId, syncUser } from "@/lib/auth";
 import type { ApplicationStatus } from "@/types/application";
 import type { ApplicationActionState } from "./application-action-state";
 
@@ -95,7 +96,9 @@ export async function createApplication(
     }
 
     try {
-		const application = await createApplicationRecord(input);
+        const userId = await getAuthenticatedUserId();
+        await syncUser();
+        const application = await createApplicationRecord(input, userId);
 
         revalidatePath("/applications");
         revalidatePath("/dashboard");
@@ -128,7 +131,8 @@ export async function updateApplication(
     let application;
 
     try {
-		application = await updateApplicationRecord(id, input);
+        const userId = await getAuthenticatedUserId();
+        application = await updateApplicationRecord(id, input, userId);
     } catch {
         return {
             status: "error" as const,
@@ -165,7 +169,8 @@ export async function deleteApplication(
     let deleted;
 
     try {
-		deleted = await deleteApplicationRecord(id);
+        const userId = await getAuthenticatedUserId();
+        deleted = await deleteApplicationRecord(id, userId);
     } catch {
         return {
             status: "error" as const,
