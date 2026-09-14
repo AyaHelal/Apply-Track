@@ -2,8 +2,6 @@
   <img src="public/ApplyLogo.jpg" alt="ApplyTrack Logo" width="180">
 </p>
 
-<h1 align="center">ApplyTrack</h1>
-
 <p align="center">
   A modern job application tracking platform that helps job seekers organize,
   track, and manage their job applications in one place.
@@ -14,8 +12,6 @@
 ## 🌐 Live Demo
 
 🔗 [Open the live demo](https://apply-track-demo.vercel.app)
-
-> This is a placeholder link and will be updated with the official deployment URL.
 
 ---
 
