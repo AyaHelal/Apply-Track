@@ -11,7 +11,7 @@
 
 ## 🌐 Live Demo
 
-🔗 [Open the live demo](https://apply-track-demo.vercel.app)
+🔗 [Open the live demo](https://apply-track-ashen.vercel.app/)
 
 ---
 
