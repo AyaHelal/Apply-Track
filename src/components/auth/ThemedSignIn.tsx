@@ -28,6 +28,8 @@ export default function ThemedSignIn() {
         },
         elements: {
           rootBox: "w-full",
+          logoBox: "h-20 w-20",
+          logoImage: "h-20 w-20 object-contain",
           card: isDark
             ? "!bg-[#1e293b] !border-[#334155] border shadow-2xl rounded-2xl w-full"
             : "!bg-white !border-[#e2e8f0] border shadow-xl rounded-2xl w-full",

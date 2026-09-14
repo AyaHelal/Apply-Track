@@ -1,5 +1,3 @@
-import Link from "next/link";
-import Logo from "@/components/layout/Logo";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import ThemedSignUp from "@/components/auth/ThemedSignUp";
 
@@ -9,12 +7,6 @@ export default function RegisterPage() {
       {/* Top Bar with Theme Toggle */}
       <div className="absolute right-4 top-4 sm:right-6 sm:top-6">
         <ThemeToggle />
-      </div>
-
-      <div className="mb-6 flex flex-col items-center">
-        <Link href="/" className="transition-opacity hover:opacity-80">
-          <Logo size="desktop" />
-        </Link>
       </div>
 
       <div className="motion-rise-in flex w-full max-w-md justify-center">
