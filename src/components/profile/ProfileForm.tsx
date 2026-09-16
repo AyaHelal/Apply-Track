@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { Camera, Save, CheckCircle, ShieldCheck, Loader2 } from "lucide-react";
 
 import Input from "@/components/ui/Input";
@@ -28,17 +29,33 @@ export default function ProfileForm({ initialJobTitle = "" }: ProfileFormProps) 
   const [isUploadingPhoto, setIsUploadingPhoto] = useState(false);
 
   useEffect(() => {
-    if (user) {
+    if (!user) return;
+
+    let cancelled = false;
+    queueMicrotask(() => {
+      if (cancelled) return;
+
       setFirstName(user.firstName || "");
       setLastName(user.lastName || "");
       setEmail(user.primaryEmailAddress?.emailAddress || user.emailAddresses[0]?.emailAddress || "");
-    }
+    });
+
+    return () => {
+      cancelled = true;
+    };
   }, [user]);
 
   useEffect(() => {
-    if (initialJobTitle) {
-      setJobTitle(initialJobTitle);
-    }
+    if (!initialJobTitle) return;
+
+    let cancelled = false;
+    queueMicrotask(() => {
+      if (!cancelled) setJobTitle(initialJobTitle);
+    });
+
+    return () => {
+      cancelled = true;
+    };
   }, [initialJobTitle]);
 
   const handleAvatarChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -98,14 +115,17 @@ export default function ProfileForm({ initialJobTitle = "" }: ProfileFormProps) 
   return (
     <div className="space-y-6">
       {/* Active Profile Header Card */}
-      <section className="rounded-xl border border-border bg-surface p-6">
+      <section className="rounded-xl border border-border bg-surface p-4 sm:p-6">
         <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-4">
+          <div className="flex min-w-0 items-center gap-4">
             <div className="relative">
               {user?.imageUrl ? (
-                <img
+                <Image
                   src={user.imageUrl}
                   alt={displayName}
+                  width={80}
+                  height={80}
+                  unoptimized
                   className="h-20 w-20 rounded-full border-2 border-primary/20 object-cover"
                 />
               ) : (
@@ -137,12 +157,12 @@ export default function ProfileForm({ initialJobTitle = "" }: ProfileFormProps) 
               />
             </div>
 
-            <div>
-              <div className="flex items-center gap-2">
-                <h2 className="text-xl font-bold text-text-primary">
+            <div className="min-w-0 flex-1">
+              <div className="flex flex-wrap items-center gap-2">
+                <h2 className="min-w-0 wrap-break-word text-xl font-bold text-text-primary">
                   {displayName}
                 </h2>
-                <span className="inline-flex items-center gap-1 rounded-full bg-success/15 px-2.5 py-0.5 text-xs font-semibold text-success">
+                <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-success/15 px-2.5 py-0.5 text-xs font-semibold text-success">
                   <CheckCircle size={12} />
                   Active Profile
                 </span>
@@ -152,7 +172,7 @@ export default function ProfileForm({ initialJobTitle = "" }: ProfileFormProps) 
                 {jobTitle || "Job Seeker"}
               </p>
 
-              <p className="mt-1 text-xs text-text-muted">
+              <p className="mt-1 break-all text-xs text-text-muted">
                 {email}
               </p>
             </div>
@@ -162,7 +182,7 @@ export default function ProfileForm({ initialJobTitle = "" }: ProfileFormProps) 
             type="button"
             onClick={() => fileInputRef.current?.click()}
             disabled={isUploadingPhoto}
-            className="inline-flex items-center justify-center gap-2 rounded-lg border border-border px-3 py-2 text-xs font-medium text-text-primary transition-colors hover:bg-surface-muted"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-border px-3 py-2 text-xs font-medium text-text-primary transition-colors hover:bg-surface-muted sm:w-auto"
           >
             <Camera size={14} />
             {isUploadingPhoto ? "Uploading..." : "Change Photo"}
@@ -221,9 +241,9 @@ export default function ProfileForm({ initialJobTitle = "" }: ProfileFormProps) 
                   type="email"
                   value={email}
                   disabled
-                  className="w-full rounded-lg border border-border bg-surface-muted px-3 py-2 text-sm text-text-muted cursor-not-allowed"
+                  className="w-full min-w-0 rounded-lg border border-border bg-surface-muted px-3 py-2 text-sm text-text-muted cursor-not-allowed sm:pr-32"
                 />
-                <span className="absolute right-3 top-2.5 flex items-center gap-1 text-xs text-text-muted">
+                <span className="mt-2 flex items-center justify-end gap-1 text-xs text-text-muted sm:absolute sm:right-3 sm:top-2.5 sm:mt-0">
                   <ShieldCheck size={14} className="text-success" />
                   Verified by Clerk
                 </span>
