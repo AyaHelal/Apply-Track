@@ -51,7 +51,9 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col">
         <ClerkProvider
-          supportEmail={process.env.NEXT_PUBLIC_SUPPORT_EMAIL}
+          supportEmail={
+            process.env.NEXT_PUBLIC_SUPPORT_EMAIL || "aya.helal.2004@gmail.com"
+          }
         >
           <ToastProvider>{children}</ToastProvider>
         </ClerkProvider>

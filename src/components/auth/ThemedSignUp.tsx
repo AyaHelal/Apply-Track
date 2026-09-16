@@ -31,7 +31,8 @@ export default function ThemedSignUp() {
           },
           elements: {
             rootBox: "w-full",
-            logoBox: "hidden",
+            logoBox: "!hidden !h-0 !w-0 !overflow-hidden !m-0 !p-0",
+            logoImage: "!hidden !h-0 !w-0",
             card: isDark
               ? "!bg-[#1e293b] !border-[#334155] border shadow-2xl rounded-2xl w-full"
               : "!bg-white !border-[#e2e8f0] border shadow-xl rounded-2xl w-full",

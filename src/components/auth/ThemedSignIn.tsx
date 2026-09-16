@@ -20,7 +20,8 @@ export default function ThemedSignIn() {
           },
           elements: {
             rootBox: "w-full",
-            logoBox: "hidden",
+            logoBox: "!hidden !h-0 !w-0 !overflow-hidden !m-0 !p-0",
+            logoImage: "!hidden !h-0 !w-0",
             card: "!bg-surface !border-border border shadow-xl rounded-2xl w-full",
             headerTitle: "!text-text-primary",
             headerSubtitle: "!text-text-secondary",
