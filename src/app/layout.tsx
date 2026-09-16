@@ -50,7 +50,9 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col">
-        <ClerkProvider>
+        <ClerkProvider
+          supportEmail={process.env.NEXT_PUBLIC_SUPPORT_EMAIL}
+        >
           <ToastProvider>{children}</ToastProvider>
         </ClerkProvider>
       </body>

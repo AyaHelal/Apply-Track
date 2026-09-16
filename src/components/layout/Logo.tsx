@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 
 type LogoProps = {
-    size?: "desktop" | "mobile";
+    size?: "desktop" | "mobile" | "auth";
 };
 
 export default function Logo({ size = "desktop" }: LogoProps) {
@@ -13,6 +13,12 @@ export default function Logo({ size = "desktop" }: LogoProps) {
     const logoSize = size === "mobile"
         ? { width: 120, height: 120 }
         : { width: 130, height: 130 };
+
+    const imageClassName = size === "auth"
+        ? "h-14 w-auto object-contain sm:h-16"
+        : size === "mobile"
+            ? "h-9 w-auto object-contain"
+            : "h-11 w-auto object-contain";
 
     if (imageError) {
         return (
@@ -46,9 +52,7 @@ export default function Logo({ size = "desktop" }: LogoProps) {
                     width={logoSize.width}
                     height={logoSize.height}
                     onError={() => setImageError(true)}
-                    className={`w-auto object-contain ${
-                        size === "mobile" ? "h-9" : "h-11"
-                    }`}
+                    className={imageClassName}
                     priority
                 />
             </div>
@@ -61,16 +65,14 @@ export default function Logo({ size = "desktop" }: LogoProps) {
                     width={logoSize.width}
                     height={logoSize.height}
                     onError={() => setImageError(true)}
-                    className={`w-auto object-contain ${
-                        size === "mobile" ? "h-9" : "h-11"
-                    }`}
+                    className={imageClassName}
                     priority
                 />
                 <div className="flex flex-col">
                     <span className="font-bold text-text-primary text-lg">
                         ApplyTrack
                     </span>
-                    
+
                     <span className="text-[0.6rem] text-text-secondary">
                         Job Application Tracker
                     </span>
