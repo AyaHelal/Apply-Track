@@ -2,7 +2,14 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Menu, X, LogOut } from "lucide-react";
+import {
+    BriefcaseBusiness,
+    LayoutDashboard,
+    LogOut,
+    Menu,
+    UserRound,
+    X,
+} from "lucide-react";
 import { SignOutButton } from "@clerk/nextjs";
 
 import Logo from "@/components/layout/Logo";
@@ -54,24 +61,27 @@ export default function MobileNavigation() {
                         <Link
                             href="/dashboard"
                             onClick={() => setIsOpen(false)}
-                            className="block rounded-lg px-4 py-3 text-text-secondary hover:bg-surface-muted hover:text-primary"
+                            className="flex items-center gap-3 rounded-lg px-4 py-3 text-text-secondary hover:bg-surface-muted hover:text-primary"
                         >
+                            <LayoutDashboard size={20} />
                             Dashboard
                         </Link>
 
                         <Link
                             href="/applications"
                             onClick={() => setIsOpen(false)}
-                            className="block rounded-lg px-4 py-3 text-text-secondary hover:bg-surface-muted hover:text-primary"
+                            className="flex items-center gap-3 rounded-lg px-4 py-3 text-text-secondary hover:bg-surface-muted hover:text-primary"
                         >
+                            <BriefcaseBusiness size={20} />
                             Applications
                         </Link>
 
                         <Link
                             href="/profile"
                             onClick={() => setIsOpen(false)}
-                            className="block rounded-lg px-4 py-3 text-text-secondary hover:bg-surface-muted hover:text-primary"
+                            className="flex items-center gap-3 rounded-lg px-4 py-3 text-text-secondary hover:bg-surface-muted hover:text-primary"
                         >
+                            <UserRound size={20} />
                             Profile
                         </Link>
                     </nav>
